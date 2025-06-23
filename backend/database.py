@@ -28,8 +28,12 @@ class Aluno(db.Entity):
             "nome": self.nome,
             "idade": self.idade,
             "cidade": self.cidade,
-            "curso": self.curso.id  # retorna apenas o ID do curso
+            "curso": {
+                "id": self.curso.id,
+                "nome": self.curso.nome
+            }
         }
+
 
 db.bind(provider='sqlite', filename='db.sqlite', create_db=True)
 db.generate_mapping(create_tables=True)

@@ -4,7 +4,12 @@
 
     <form @submit.prevent="criarAluno">
       <input v-model="aluno.nome" placeholder="Nome" required />
-      <input v-model.number="aluno.idade" type="number" placeholder="Idade" required />
+      <input
+        v-model.number="aluno.idade"
+        type="number"
+        placeholder="Idade"
+        required
+      />
       <input v-model="aluno.cidade" placeholder="Cidade" required />
 
       <!-- Select de cursos -->
@@ -20,8 +25,8 @@
 
     <ul>
       <li v-for="a in alunos" :key="a.id">
-        {{ a.nome }} ({{ a.idade }} anos) - {{ a.cidade }} -
-        Curso: {{ nomeCurso(a.curso) }}
+        {{ a.nome }} ({{ a.idade }} anos) - {{ a.cidade }} - Curso:
+        {{ a.curso.nome }} (id: {{ a.curso.id }})
       </li>
     </ul>
   </div>
@@ -51,10 +56,6 @@ export default {
       await axios.post("http://localhost:5000/alunos", this.aluno);
       this.aluno = { nome: "", idade: null, cidade: "", curso: "" };
       this.listarAlunos();
-    },
-    nomeCurso(idCurso) {
-      const curso = this.cursos.find(c => c.id === idCurso);
-      return curso ? curso.nome : "Desconhecido";
     },
   },
   mounted() {
